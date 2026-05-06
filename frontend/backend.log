@@ -1,0 +1,4 @@
+INFO:     Will watch for changes in these directories: ['/Users/prajwal/Desktop/antigravity/HMS/hospital-management-system/frontend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [20511] using WatchFiles
+ERROR:    Error loading ASGI app. Could not import module "main".

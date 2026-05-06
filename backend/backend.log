@@ -1,0 +1,101 @@
+INFO:     Will watch for changes in these directories: ['/Users/prajwal/Desktop/antigravity/HMS/hospital-management-system/backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [20592] using WatchFiles
+INFO:     Started server process [20594]
+INFO:     Waiting for application startup.
+ERROR:    Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.13/site-packages/starlette/routing.py", line 638, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/anaconda3/lib/python3.13/site-packages/fastapi/routing.py", line 241, in __aenter__
+    await self._router._startup()
+  File "/opt/anaconda3/lib/python3.13/site-packages/fastapi/routing.py", line 4884, in _startup
+    await handler()
+  File "/Users/prajwal/Desktop/antigravity/HMS/hospital-management-system/backend/main.py", line 23, in startup_event
+    await init_db()
+  File "/Users/prajwal/Desktop/antigravity/HMS/hospital-management-system/backend/database.py", line 20, in init_db
+    await init_beanie(
+    ...<8 lines>...
+    )
+  File "/opt/anaconda3/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 774, in init_beanie
+    await Initializer(
+    ...<6 lines>...
+    )
+  File "/opt/anaconda3/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 130, in __await__
+    yield from self._load_cached_info().__await__()
+  File "/opt/anaconda3/lib/python3.13/site-packages/beanie/odm/utils/init.py", line 135, in _load_cached_info
+    build_info = await self.database.command({"buildInfo": 1})
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/database.py", line 953, in command
+    return self._client._retryable_read(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        inner, read_preference, session, command_name, None, False, is_run_command=True
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2076, in _retryable_read
+    return self._retry_internal(
+           ~~~~~~~~~~~~~~~~~~~~^
+        func,
+        ^^^^^
+    ...<9 lines>...
+        is_aggregate_write=is_aggregate_write,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2038, in _retry_internal
+    ).run()
+      ~~~^^
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2811, in run
+    res = self._read() if self._is_read else self._write()
+          ~~~~~~~~~~^^
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 3027, in _read
+    self._server = self._get_server()
+                   ~~~~~~~~~~~~~~~~^^
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 2975, in _get_server
+    return self._client._select_server(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._server_selector,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        operation_id=self._operation_id,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/mongo_client.py", line 1851, in _select_server
+    server = topology.select_server(
+        server_selector,
+    ...<2 lines>...
+        operation_id=operation_id,
+    )
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 428, in select_server
+    server = self._select_server(
+        selector,
+    ...<4 lines>...
+        operation_id=operation_id,
+    )
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 402, in _select_server
+    servers = self.select_servers(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers,
+    )
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 298, in select_servers
+    server_descriptions = self._select_servers_loop(
+        selector,
+    ...<4 lines>...
+        deprioritized_servers=deprioritized_servers,
+    )
+  File "/opt/anaconda3/lib/python3.13/site-packages/pymongo/synchronous/topology.py", line 359, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+        f"{self._error_message(selector)}, Timeout: {timeout}s, Topology Description: {self.description!r}"
+    )
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 69fb2e75943dad9e4b123750, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 61] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+
+ERROR:    Application startup failed. Exiting.
